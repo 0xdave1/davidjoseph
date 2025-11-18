@@ -1949,3 +1949,126 @@ textarea.form-input::-webkit-resizer { display: none; }
   .timeline-text { max-width: 700px; }
 
 }
+
+/* Mobile - improve layout, prevent overflow and keep buttons inside */
+@media (max-width: 599px) {
+  /* page spacing */
+  main {
+    margin: 12px;
+    margin-bottom: 90px;
+  }
+
+  /* sidebar - full width, less padding for mobile,
+     remove the small max-height that previously clipped content */
+  .sidebar {
+    width: 100%;
+    padding: 12px;
+    border-radius: 14px;
+    max-height: none;
+    overflow: visible;
+  }
+
+  /* header layout: avatar + info side-by-side but tighter */
+  .sidebar-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px;
+  }
+
+  .avatar-box {
+    flex: 0 0 64px;
+    width: 64px;
+    height: 64px;
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-1);
+  }
+
+  .avatar-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 10px;
+  }
+
+  /* allow the info column to shrink so buttons and name wrap correctly */
+  .info-content {
+    flex: 1 1 auto;
+    min-width: 0;               /* critical to avoid overflow */
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  /* let the name wrap to up to two lines instead of forcing overflow */
+  .info-content .name {
+    font-size: 17px;
+    font-weight: var(--fw-600);
+    line-height: 1.1;
+    white-space: normal;        /* allow wrapping */
+    overflow: visible;
+    text-overflow: initial;
+    margin-bottom: 4px;
+  }
+
+  .info-content .title {
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    white-space: nowrap;        /* keep role pill on one line */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: max-content;
+  }
+
+  /* buttons group: wrap, smaller padding, stay inside container */
+  .btn-group {
+    margin-top: 6px;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+    box-sizing: border-box;
+    justify-content: flex-start;
+  }
+
+  /* make buttons compact and allow them to share available space */
+  .contact.hire,
+  .cv-btn {
+    padding: 8px 10px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: var(--fw-600);
+    flex: 1 1 48%;              /* try to fit two-per-row */
+    min-width: 120px;
+    max-width: calc(50% - 6px);
+    text-align: center;
+    white-space: nowrap;
+    box-sizing: border-box;
+  }
+
+  /* if the viewport is very narrow stack the buttons full width */
+  @media (max-width: 420px) {
+    .contact.hire,
+    .cv-btn {
+      flex: 0 0 100%;
+      min-width: 0;
+      max-width: 100%;
+    }
+  }
+
+  /* place the "more" button inside the header on mobile */
+  .info_more-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    padding: 8px;
+    border-radius: 10px;
+  }
+}
